@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+
+    <script src="jquery.js"></script>
+    <script src="in.js"></script>
+    <script src="graphics.js"></script>
+    <script src="tic.js"></script>
+    <link href="canvasStyle.css" rel="stylesheet" />
+    <link href="genStyle.css" rel="stylesheet" />
+	<meta charset="utf-8" />
+</head>
+<body>
+    <header><h1>Tic Tac Toe</h1></header>
+
+    <canvas id="XS" height="100px" width="200px"></canvas>
+    <canvas id="gameCanvas" height="500px" width="500px" onclick="makeSelection()" <!--onmouseover="highlight()" -->></canvas>
+    <canvas id="OS" height="100px" width="200px"></canvas>
+    
+    <!--<button id="showLines" onclick="showLines()">Show Lines</button>-->
+    <!--<p id="clickMe" onclick="doAClick()">Click Here</p>-->
+    <br /><button id="clear" onclick="clearGrid()">Clear</button>
+
+    <img id="imagex" src="x.png" />
+    <img id="imageo" src="o.png" />
+    <img id="oImagex" src="opaqueX.png" />
+    <img id="oImageo" src="opaqueO.png" />
+</body>
+</html>
