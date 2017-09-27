@@ -1,10 +1,10 @@
 ﻿$(document).ready(
     function () {
         c = document.getElementById("gameCanvas");
-        CTX = c.getContext("2d");
         x = document.getElementById("XS");
-        xCTX = x.getContext("2d");
         o = document.getElementById("OS");
+        CTX = c.getContext("2d");
+        xCTX = x.getContext("2d");
         oCTX = o.getContext("2d");
         drawXScore(0);
         drawOScore(0);
@@ -19,8 +19,8 @@ function updateSpot (cell, CTX) {
     var imgo = document.getElementById("imageo");
 
     if(getCellType(cell) == CellType.Clear){
-        let img = checkTurn() ? imgo : imgx;
-        let type = checkTurn() ? CellType.O : CellType.X;
+        let img = getTurn() ? imgo : imgx;
+        let type = getTurn() ? CellType.O : CellType.X;
         CTX.drawImage(img, cell.x * cellWidth, cell.y * cellWidth, cellWidth, cellWidth);
         updateCellType(cell, type);
         updateTurn();
@@ -30,16 +30,16 @@ function updateSpot (cell, CTX) {
 function clearGrid()
 {
     clearAllCells();
-    ctx.fillStyle = "mediumaquamarine";
+    ctx.fillStyle = "#CFE2DB";
     ctx.fillRect(0, 0, 500, 500);
 }
 
 function drawXScore (amt) {
-    xCTX.fillStyle = "mediumaquamarine";
+    xCTX.fillStyle = "#00CCFF";
     xCTX.fillRect(0, 0, 200, 100);
 
     xCTX.font = "50px Haettenschweiler";
-    xCTX.fillStyle = "chartreuse";
+    xCTX.fillStyle = "#CFE2DB";
     xCTX.textAlign = "center";
     xCTX.fillText("X Score", XS.width / 2, 50);
     xCTX.strokeText("X Score", XS.width / 2, 50);
@@ -48,11 +48,11 @@ function drawXScore (amt) {
 }
 
 function drawOScore (amt) {
-    oCTX.fillStyle = "mediumaquamarine";
+    oCTX.fillStyle = "magenta";
     oCTX.fillRect(0, 0, 200, 100);
 
     oCTX.font = "50px Haettenschweiler";
-    oCTX.fillStyle = "chartreuse";
+    oCTX.fillStyle = "#CFE2DB";
     oCTX.textAlign = "center";
     oCTX.fillText("O Score", XS.width / 2, 50);
     oCTX.strokeText("O Score", XS.width / 2, 50);

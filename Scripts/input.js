@@ -13,7 +13,6 @@ function makeSelection () {
     
     if( x >= 0 && y >= 0 && x <= 500 && y <= 500)
     {
-        console.log("You clicked in a cell");
         let cell = getCell(x, y);
         updateSpot(cell, ctx);
         checkIfWin();

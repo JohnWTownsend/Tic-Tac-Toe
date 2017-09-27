@@ -6,16 +6,15 @@
 
 var board = new Array(3);
 for (let i = 0; i < 3 ; i++){
-        board[i] = new Array(3);
-        for(let j = 0; j < 3; j++){
-            board[i][j] = CellType.Clear;
-        }
+    board[i] = new Array(3);
+    for(let j = 0; j < 3; j++){
+        board[i][j] = CellType.Clear;
+    }
 }
 
 var turn = 0;
 var xScore = 0;
 var oScore = 0;
-
 
 $(document).ready(
     function () {
@@ -25,13 +24,11 @@ $(document).ready(
 )
 
 
-var getCellType = function (cell) {
-    console.log(board);
+function getCellType(cell) {
     return board[cell.x][cell.y];
 }
 
-var updateCellType = function (cell, type) {
-    console.log(type + " cell: " + cell.x + " " + cell.y );
+function updateCellType(cell, type) {
     board[cell.x][cell.y] = type;
 }
 
@@ -43,36 +40,35 @@ function clearAllCells(){
     }
 }
 
-var updateTurn = function () {
-    turn++;
+function updateTurn() {
+    turn = turn == 0 ? 1 : 0;
 }
 
-var checkTurn = function () {
-    return turn % 2;
+function getTurn() {
+    return turn;
 }
 
-var addXScore = function () {
+function addXScore() {
     xScore++;
     drawXScore(xScore);
 }
 
-var addOScore = function () {
+function addOScore() {
     oScore++;
     drawOScore(oScore);
 }
 
-var checkIfWin = function () {
+function checkIfWin() {
     for(let i = 1; i <= 2; i++){
-        if(
-            (board[0][0] == i && board[1][0] == i && board[2][0] == i) ||
+        if( (board[0][0] == i && board[1][0] == i && board[2][0] == i) ||
             (board[0][0] == i && board[1][1] == i && board[2][2] == i) ||
             (board[0][0] == i && board[0][1] == i && board[0][2] == i) || 
             (board[0][1] == i && board[1][1] == i && board[2][1] == i) ||
             (board[0][2] == i && board[1][2] == i && board[2][2] == i) ||
             (board[1][0] == i && board[1][1] == i && board[1][2] == i) ||
             (board[2][0] == i && board[1][1] == i && board[0][2] == i) ||
-            (board[2][0] == i && board[2][1] == i && board[2][2] == i)
-        ){
+            (board[2][0] == i && board[2][1] == i && board[2][2] == i))
+        {
             youWin(i);
             window.setTimeout(clearGrid, 1000);
         }

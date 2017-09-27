@@ -4,9 +4,9 @@
     <title>Tic Tac Toe</title>
 
     <script src="Scripts/jquery.js"></script>
-    <script src="Scripts/in.js"></script>
+    <script src="Scripts/input.js"></script>
     <script src="Scripts/graphics.js"></script>
-    <script src="Scripts/tic.js"></script>
+    <script src="Scripts/game.js"></script>
     <link href="Styles/canvasStyle.css" rel="stylesheet" />
     <link href="Styles/genStyle.css" rel="stylesheet" />
 	<meta charset="utf-8" />
@@ -18,7 +18,8 @@
     <canvas id="gameCanvas" height="500px" width="500px" onclick="makeSelection()" <!--onmouseover="highlight()" -->></canvas>
     <canvas id="OS" height="100px" width="200px"></canvas>
     
-    <br /><button id="clear" onclick="clearGrid()">Clear</button>
+    <br />
+    <button id="clear" onclick="clearGrid()">Clear</button>
 
     <img id="imagex" src="Images/x.png" />
     <img id="imageo" src="Images/o.png" />

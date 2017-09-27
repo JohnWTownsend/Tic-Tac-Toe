@@ -2,8 +2,8 @@
     width:100%;
     height:100%;
 }
-body {
-    background-color:rgb(178, 206, 206);
+body{
+    background-color:#616060;
     text-align:center;
     margin: 0% 5%;
     height:100%;
@@ -12,9 +12,9 @@ body {
 header h1{
     font-family:Haettenschweiler;
     font-size: 100px;
-    color:chartreuse;
+    color:#487263;
     background-size:contain;
-    -webkit-text-stroke-color: black ;
+    -webkit-text-stroke-color: chartreuse ;
     -webkit-text-stroke-width:1.5px;
     margin-left:25%;
     margin-right:25%;
@@ -23,15 +23,16 @@ header h1{
 }
 
 button{
-    background:mediumaquamarine;
+    font-family:Haettenschweiler;
+    background:#487263;
     color:chartreuse;
-    -webkit-text-stroke-color:black;
     font-size:30px;
-
+    float:none;
+    border: 2px solid chartreuse;
 }
 button:active {
-    background-color:chartreuse;
-    color:mediumaquamarine;
+    background-color:#35594C;
+    color:chartreuse;
 }
 
 img{
