@@ -1,78 +1,137 @@
-﻿$(document).ready(
-    function () {
-        c = document.getElementById("gameCanvas");
-        x = document.getElementById("XS");
-        o = document.getElementById("OS");
-        CTX = c.getContext("2d");
-        xCTX = x.getContext("2d");
-        oCTX = o.getContext("2d");
-        drawXScore(0);
-        drawOScore(0);
-    }
-)
+﻿
+$(document).ready(function () {
 
-var cellWidth = 166;
+        x = document.getElementById("XS");
+        xtx = x.getContext("2d");
+        o = document.getElementById("OS");
+        otx = o.getContext("2d");
+        visXScore(0);
+        visOScore(0);
+
+        $('.boardElem').width( $('#GameBoard').width() / 3.5  + "px");
+        $('.boardElem').height( $('#GameBoard').width() / 3.5  + "px");
+        $('.scoreElem').height( $('#OSdiv').width() / 3.5  + "px");
+        $('.scoreElem').height( $('#OSdiv').width() / 3.5  + "px");
+
+        $(window).on("resize",() =>{
+            $('.boardElem').width( $('#GameBoard').width() / 3.5  + "px");
+            $('.boardElem').height( $('#GameBoard').width() / 3.5  + "px");
+            $('.scoreElem').height( $('#OSdiv').width() / 3.5  + "px");
+            $('.scoreElem').height( $('#OSdiv').width() / 3.5  + "px");
+
+        });
+});
+
 var alreadyWon = 0;
 
-function updateSpot (cell, CTX) {
+function updateSpot(spot) {
     var imgx = document.getElementById("imagex");
     var imgo = document.getElementById("imageo");
+    var img;
 
-    if(getCellType(cell) == CellType.Clear){
-        let img = getTurn() ? imgo : imgx;
-        let type = getTurn() ? CellType.O : CellType.X;
-        CTX.drawImage(img, cell.x * cellWidth, cell.y * cellWidth, cellWidth, cellWidth);
-        updateCellType(cell, type);
+    if(getSpotType(spot) == -1){
+        img = checkTurn() == 0 ? imgx : imgo; 
+
+        let canvas = document.getElementById(`${spot + 1}`);
+        let ctx = canvas.getContext("2d");
+
+        ctx.drawImage(img,0,0,canvas.width, canvas.height);
+        updateSpotType(spot, checkTurn());
+        
         updateTurn();
+    }
+}
+
+function displayOpaque(event){
+    let id = Number(event.target.id);
+    console.log(`displayOpaque ${id}`);
+
+    if(getSpotType(id-1) == -1){
+        let canvas = document.getElementById(id);
+        let ctx = canvas.getContext("2d");
+        let img = checkTurn() == 0 ? document.getElementById("oImagex") : document.getElementById("oImageo");
+        ctx.drawImage(img,0,0,canvas.width, canvas.height);
+    }
+}
+
+function removeOpaque(event){
+    let id = Number(event.target.id);
+    if(getSpotType(id-1) == -1){
+        let canvas = document.getElementById(id);
+        let ctx = canvas.getContext("2d");
+        ctx.fillStyle = "rgb(52, 52, 52)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
     }
 }
 
 function clearGrid()
 {
-    clearAllCells();
-    ctx.fillStyle = "#CFE2DB";
-    ctx.fillRect(0, 0, 500, 500);
+    let ctx, canvas;
+
+    for (i = 0; i < 9; i++) {
+        updateSpotType(i, -1);
+        ctx = document.getElementById(`${i+1}`);
+        canvas = ctx.getContext("2d");
+        canvas.clearRect(0,0,ctx.width,ctx.height);
+    }
 }
 
-function drawXScore (amt) {
-    xCTX.fillStyle = "#00CCFF";
-    xCTX.fillRect(0, 0, 200, 100);
+function visXScore(amt) {
+    xtx.fillStyle = "rgb(60, 60, 60)";
+    xtx.fillRect(0, 0, XS.width, XS.height);
 
-    xCTX.font = "50px Haettenschweiler";
-    xCTX.fillStyle = "#CFE2DB";
-    xCTX.textAlign = "center";
-    xCTX.fillText("X Score", XS.width / 2, 50);
-    xCTX.strokeText("X Score", XS.width / 2, 50);
-    xCTX.fillText(amt, XS.width / 2, XS.height -10);
-    xCTX.strokeText(amt, OS.width / 2, OS.height -10);
+    xtx.font = "50px Haettenschweiler";
+    var gradient = xtx.createLinearGradient(0,0,x.width,0);
+    gradient.addColorStop("0","blue");
+    gradient.addColorStop("0.5","rgb(235,10,103)");
+    gradient.addColorStop("1.0","yellow");
+    xtx.fillStyle = gradient;
+    xtx.textAlign = "center";
+    xtx.fillText("X Score", XS.width / 2, 50);
+    xtx.strokeText("X Score", XS.width / 2, 50);
+    xtx.fillText(amt, XS.width / 2, XS.height -10);
+    xtx.strokeText(amt, OS.width / 2, OS.height -10);
 }
 
-function drawOScore (amt) {
-    oCTX.fillStyle = "magenta";
-    oCTX.fillRect(0, 0, 200, 100);
+function visOScore(amt) {
+    otx.fillStyle = "rgb(60, 60, 60)";
+    otx.fillRect(0, 0, OS.width, OS.height);
 
-    oCTX.font = "50px Haettenschweiler";
-    oCTX.fillStyle = "#CFE2DB";
-    oCTX.textAlign = "center";
-    oCTX.fillText("O Score", XS.width / 2, 50);
-    oCTX.strokeText("O Score", XS.width / 2, 50);
-    oCTX.fillText(amt, XS.width / 2, XS.height - 10);
-    oCTX.strokeText(amt, OS.width / 2, OS.height - 10);
+    otx.font = "50px Haettenschweiler";
+    var gradient = otx.createLinearGradient(0,0,o.width,0);
+    gradient.addColorStop("0","blue");
+    gradient.addColorStop("0.5","rgb(235,10,103)");
+    gradient.addColorStop("1.0","yellow");
+    otx.fillStyle = gradient;
+    otx.textAlign = "center";
+    otx.fillText("O Score", XS.width / 2, 50);
+    otx.strokeText("O Score", XS.width / 2, 50);
+    otx.fillText(amt, XS.width / 2, XS.height - 10);
+    otx.strokeText(amt, OS.width / 2, OS.height - 10);
 }
-
-function youWin (type){
-    ctx.font = "100px Haettenschweiler";
-    ctx.fillStyle = "chartreuse";
-    ctx.textAlign = "center";
+function showYouWin(winner){
+    let canvas = document.getElementById(`${winner}S`);
+    let ctx = canvas.getContext("2d");
     
-    if (type == CellType.X){
+    ctx.fillStyle = "rgb(60, 60, 60)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    let gradient = ctx.createLinearGradient(0,0,o.width,0);
+    gradient.addColorStop("0","blue");
+    gradient.addColorStop("0.5","rgb(235,10,103)");
+    gradient.addColorStop("1.0","yellow");
+    ctx.font = "50px Haettenschweiler";
+    ctx.fillStyle = gradient;
+    ctx.fillText("Winner!", canvas.width/2, canvas.height/2);
+    ctx.strokeText("Winner!", canvas.width/2, canvas.height/2);
+}
+
+function youWin(type){
+    disableInput();
+    if (type == 0)
         addXScore();
-        ctx.fillText("Xs Win!", gameCanvas.width / 2, gameCanvas.height / 2);
-        ctx.strokeText("Xs Win!", gameCanvas.width / 2, gameCanvas.height / 2);
-    }
-    else{
+    else
         addOScore();
-        ctx.fillText("Os Win!", gameCanvas.width / 2, gameCanvas.height / 2);
-        ctx.strokeText("Os Win!", gameCanvas.width / 2, gameCanvas.height / 2);
-    }
+
+    setTimeout(clearGrid, 1000);
+    setTimeout(enableInput,2000);
 }
