@@ -8,18 +8,9 @@ $(document).ready(function () {
         visXScore(0);
         visOScore(0);
 
-        $('.boardElem').width( $('#GameBoard').width() / 3.5  + "px");
-        $('.boardElem').height( $('#GameBoard').width() / 3.5  + "px");
-        $('.scoreElem').height( $('#OSdiv').width() / 3.5  + "px");
-        $('.scoreElem').height( $('#OSdiv').width() / 3.5  + "px");
+        XS = document.querySelector("#XS")
+        OS = document.querySelector("#OS")
 
-        $(window).on("resize",() =>{
-            $('.boardElem').width( $('#GameBoard').width() / 3.5  + "px");
-            $('.boardElem').height( $('#GameBoard').width() / 3.5  + "px");
-            $('.scoreElem').height( $('#OSdiv').width() / 3.5  + "px");
-            $('.scoreElem').height( $('#OSdiv').width() / 3.5  + "px");
-
-        });
 });
 
 var alreadyWon = 0;
@@ -44,7 +35,6 @@ function updateSpot(spot) {
 
 function displayOpaque(event){
     let id = Number(event.target.id);
-    console.log(`displayOpaque ${id}`);
 
     if(getSpotType(id-1) == -1){
         let canvas = document.getElementById(id);
@@ -133,5 +123,5 @@ function youWin(type){
         addOScore();
 
     setTimeout(clearGrid, 1000);
-    setTimeout(enableInput,2000);
+    setTimeout(enableInput,1000);
 }

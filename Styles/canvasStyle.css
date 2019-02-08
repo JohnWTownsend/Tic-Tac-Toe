@@ -1,21 +1,35 @@
-﻿#GameBoard{
-    position: relative;
-    /* box-shadow:rgb(235, 10, 103) 3px 0px 10px, rgb(235, 10, 103) -3px 0px 10px; */
+﻿#GameFrame{
+    display: flex;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+}
+
+#GameBoard{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50vw;
+    margin: 2%;
 }
 .boardRow{
-    clear:left;
-    margin:0px 2%;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: 15vw;
+    max-height: 100px;
 }
 .boardElem{
-    float:left;
-    margin: 1% 1%;
     background: rgb(52,52,52);
     box-shadow:yellow 3px 0px 10px, yellow -3px 0px 10px;
+    width: 15vw;
+    max-width: 100px;
 }
 
 #XS, #OS {
-    position: relative;
     background-color: rgb(52,52,52);
+    width: 100%;
 }
 #XS{
     box-shadow:blue 3px 0px 10px,blue -3px 0px 10px; 
@@ -23,8 +37,17 @@
 #OS{
     box-shadow:rgb(235, 10, 103) 3px 0px 10px, rgb(235, 10, 103) -3px 0px 10px; 
 }
-#XSdiv{
-    float:left;
+
+#XSdiv, #OSdiv{
+    margin: 5px;
 }
 
 button{float:none;}
+@media screen and (max-width: 800px){
+    header h1{
+        font-size: 2em;
+    }
+    #GameFrame{
+        flex-direction:column;
+    }
+}

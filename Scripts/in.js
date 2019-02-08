@@ -29,12 +29,12 @@ function makeSelection(event, elem) {
 }
 
 function disableInput(){
-    $('.boardElem').each(() =>{
-        $(this).attr("pointer-events","none");
+    document.querySelectorAll('.boardElem').forEach( (boardElem)=>{
+        boardElem.setAttribute("style","pointer-events:none;");
     })
 }
 function enableInput(){
-    $('.boardElem').each(() =>{
-        $(this).attr("pointer-events","auto");
+    document.querySelectorAll('.boardElem').forEach((boardElem) =>{
+        boardElem.setAttribute("style","pointer-events:auto;");
     })
 }
